@@ -3,7 +3,6 @@ window.onload = function() {
 }
 
 window.onkeyup = function(e) {
-    //generar();
     if (e.keyCode == 13) {
         if (e.ctrlKey) {
             //generar();
@@ -23,31 +22,22 @@ function init() {
 }
 
 function compilar(){
+    /*
     code = document.getElementById("code");
     code.innerHTML = document.getElementById("coding").value;
-
+*/
+    var borrar = document.getElementById("code");
+    document.body.removeChild(borrar);
+    
     var script   = document.createElement("script");
     script.type  = "text/javascript";
-    script.text  = code.innerHTML;               // use this for inline script
+    script.id = "code";
+    script.text  = document.getElementById("coding").value;
     document.body.appendChild(script);
 }
 
 
 function generar() {
-    /*s
-    for (var i = 0; i < 1000; i++) {
-        var x = Math.random() * width;
-        var y = Math.random() * height;
-        var tam = Math.random() * 20 + 20;
-        var grd = ctx.createLinearGradient(x, y - tam, x, y + tam);
-        grd.addColorStop(0, "#D7D9D0");
-        grd.addColorStop(1, "#4D4F46");
-        ctx.fillStyle = grd;
-        ellipse(ctx, x, y, tam, tam, grd);
-        //ctx.arc(x, y, tam, 0, 2 * Math.PI);
-        ctx.fill();
-
-    } */
     var c = document.getElementById("canvis");
     var ctx = c.getContext("2d");
     var width = canvas.width;

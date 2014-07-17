@@ -20,5 +20,6 @@ body{
 	box-sizing: border-box;
 	background-color: transparent;
 	border: none;
+	resize: none;
 	z-index: 3;
 }
