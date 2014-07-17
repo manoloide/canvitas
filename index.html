@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>canvis!</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="javascript.js"></script>
+</head>
+<body>
+	<canvas id="canvis"></canvas>
+	<textarea wrap="off" id="coding" spellcheck="false">
+		//con ctrl+enter "compilas";
+
+		function randColor() {
+		  function c() {
+		    return Math.floor(Math.random()*256).toString(16)
+		  }
+		  return "#"+c()+c()+c();
+		}
+
+		var c = document.getElementById("canvis");
+	    canvas.width = window.innerWidth;
+	    canvas.height = window.innerHeight;
+	    var ctx = c.getContext("2d");
+	    var width = canvas.width;
+	    var height = canvas.height;
+
+	    var grd = ctx.createLinearGradient(0, 0, 0, height);
+	    grd.addColorStop(0, randColor());
+	    grd.addColorStop(1, randColor());
+	    ctx.fillStyle = grd;
+	    ctx.fillRect(0, 0, width, height);
+	    ctx.fill();
+
+    </textarea>
+	<script id="code"></script>
+</body>
+</html>
