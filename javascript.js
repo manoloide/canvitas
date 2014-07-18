@@ -3,9 +3,9 @@ window.onload = function() {
 }
 
 window.onkeyup = function(e) {
-    if (e.keyCode == 13) {
-        if (e.ctrlKey) {
-            //generar();
+    if (e.ctrlKey) {
+        if (e.keyCode == 13) {
+            autoFormat();
             compilar();
         }
     }
@@ -16,16 +16,32 @@ function init() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     generar();
-    canvis.keypress = function() {
-        //generar();
-    };
+    autoFormat();
+}
+
+function autoFormat(){
+    var ori = document.getElementById("coding").value;
+    var lines = ori.split(/\r\n|\r|\n/g);
+    var nueva = "";
+    var esp = 0;
+    for(var i = 0; i < lines.length; i++){
+        var line = lines[i].toString().trim().replace(/(\r\n|\n|\r)/g,"");
+        esp += (line.split("{").length - 1); 
+        esp -= (line.split("}").length - 1); 
+        for(var j = 1; j < esp; j++){
+            nueva += "  ";
+        }
+        nueva += line+"\n";
+    }
+    //console.log(lines);
+    document.getElementById("coding").value = nueva;
 }
 
 function compilar(){
     /*
     code = document.getElementById("code");
     code.innerHTML = document.getElementById("coding").value;
-*/
+    */
     var borrar = document.getElementById("code");
     document.body.removeChild(borrar);
     
