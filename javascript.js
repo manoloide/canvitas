@@ -1,20 +1,27 @@
-var coding;
-
 window.onload = function() {
     init();
 }
 
 
-window.onkeyup = function(e) {
+var coding;
+window.onkeydown = function(e) {
     if (e.ctrlKey) {
         if (e.keyCode == 13) {
             autoFormat();
             compilar();
         }
     }
-    if(e.keyCode == 9) {
-        e.preventDefault();
-    }    
+    if (e.keyCode == 9) {
+       var val = coding.value.toString(),
+       start = coding.selectionStart,
+       end = coding.selectionEnd;
+       selec = spaceTab + val.substring(start, end).replace(/(\r\n|\n|\r)/g,"\n"+spaceTab);
+       var cant = (selec.length - val.substring(start, end).length)/spaceTab.length;
+       coding.value = val.substring(0, start) + selec + val.substring(end);
+       coding.selectionStart = start + spaceTab.length;
+       coding.selectionEnd = end + spaceTab.length*cant;
+       return false;
+   }
 }
 
 function init() {
@@ -26,7 +33,7 @@ function init() {
     ctx = canvas.getContext("2d");
     width = canvas.width;
     height = canvas.height;
-    
+    spaceTab = "  ";
     generar();
     autoFormat();
 
@@ -52,7 +59,7 @@ function autoFormat(){
         var line = lines[i].toString().trim().replace(/(\r\n|\n|\r)/g,"");
         esp -= (line.split("}").length - 1);
         for(var j = 0; j < esp; j++){
-            nueva += "  ";
+            nueva += spaceTab;
         } 
         esp += (line.split("{").length - 1); 
         nueva += line;
