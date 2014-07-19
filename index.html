@@ -13,25 +13,35 @@
 
 		function randColor() {
 		  function c() {
-		    return Math.floor(Math.random()*256).toString(16)
+		    var cc = Math.floor(Math.random()*256).toString(16);
+		    if(cc.length == 1) cc = "0"+cc;
+		    return cc;
 		  }
 		  return "#"+c()+c()+c();
 		}
 
-		var c = document.getElementById("canvis");
-	    canvas.width = window.innerWidth;
-	    canvas.height = window.innerHeight;
-	    var ctx = c.getContext("2d");
-	    var width = canvas.width;
-	    var height = canvas.height;
+		function fondoDeg(){
+		  var grd = ctx.createLinearGradient(0, 0, 0, height);
+		  grd.addColorStop(0, randColor());
+		  grd.addColorStop(1, randColor());
+		  ctx.fillStyle = grd;
+		  ctx.fillRect(0, 0, width, height);
+		  ctx.fill();
+		}
 
-	    var grd = ctx.createLinearGradient(0, 0, 0, height);
-	    grd.addColorStop(0, randColor());
-	    grd.addColorStop(1, randColor());
-	    ctx.fillStyle = grd;
-	    ctx.fillRect(0, 0, width, height);
-	    ctx.fill();
+		colorrr = randColor();
 
+		function loop(){
+		  //if(frameCount%60 == 0) fondoDeg();
+		  for(var i = 0; i < 4; i++){
+		    var x = Math.random()*width;
+		    var y = Math.random()*height;
+		    var tt = Math.random()*8 +2;
+		    ctx.fillStyle = colorrr;
+		    ellipse(ctx, x, y, tt, tt);
+		    ctx.fill();
+		  }
+		}
     </textarea>
 	<script id="code"></script>
 </body>

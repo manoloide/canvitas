@@ -21,5 +21,8 @@ body{
 	background-color: transparent;
 	border: none;
 	resize: none;
+	overflow: hidden;
+    border-style: none; 
+    border-color: Transparent; 
 	z-index: 3;
 }

@@ -1,6 +1,9 @@
+var coding;
+
 window.onload = function() {
     init();
 }
+
 
 window.onkeyup = function(e) {
     if (e.ctrlKey) {
@@ -9,32 +12,54 @@ window.onkeyup = function(e) {
             compilar();
         }
     }
+    if(e.keyCode == 9) {
+        e.preventDefault();
+    }    
 }
 
 function init() {
+    coding = document.getElementById("coding");
+
     canvas = document.getElementById("canvis");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    ctx = canvas.getContext("2d");
+    width = canvas.width;
+    height = canvas.height;
+    
     generar();
     autoFormat();
+
+    frameCount = -1;
+    mainLoop = setInterval(function(){
+        if(width != window.innerWidth || height != window.innerHeight){
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            width = canvas.width;
+            height = canvas.height;
+        }
+        frameCount++;
+        loop(); 
+    }, 1/60);
 }
 
 function autoFormat(){
-    var ori = document.getElementById("coding").value;
+    var ori = coding.value;
     var lines = ori.split(/\r\n|\r|\n/g);
     var nueva = "";
     var esp = 0;
     for(var i = 0; i < lines.length; i++){
         var line = lines[i].toString().trim().replace(/(\r\n|\n|\r)/g,"");
-        esp += (line.split("{").length - 1); 
-        esp -= (line.split("}").length - 1); 
-        for(var j = 1; j < esp; j++){
+        esp -= (line.split("}").length - 1);
+        for(var j = 0; j < esp; j++){
             nueva += "  ";
-        }
-        nueva += line+"\n";
+        } 
+        esp += (line.split("{").length - 1); 
+        nueva += line;
+        if(i < lines.length-1) nueva += "\n";
     }
     //console.log(lines);
-    document.getElementById("coding").value = nueva;
+    coding.value = nueva;
 }
 
 function compilar(){
@@ -136,5 +161,7 @@ function circulin(ctx, x, y, tam, cant) {
     }
     ellipse(ctx, x, y, rad, rad);
     ctx.stroke();
+}
 
+var loop = function(){
 }
