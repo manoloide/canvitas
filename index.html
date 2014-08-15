@@ -9,39 +9,30 @@
 <body>
 	<canvas id="canvis"></canvas>
 	<textarea wrap="off" id="coding" spellcheck="false">
-		//con ctrl+enter "compilas";
+//con ctrl+enter "compilas";
 
-		function randColor() {
-		  function c() {
-		    var cc = Math.floor(Math.random()*256).toString(16);
-		    if(cc.length == 1) cc = "0"+cc;
-		    return cc;
-		  }
-		  return "#"+c()+c()+c();
-		}
+colorrr = color(Math.random()*256, Math.random()*256, Math.random()*256);
 
-		function fondoDeg(){
-		  var grd = ctx.createLinearGradient(0, 0, 0, height);
-		  grd.addColorStop(0, randColor());
-		  grd.addColorStop(1, randColor());
-		  ctx.fillStyle = grd;
-		  ctx.fillRect(0, 0, width, height);
-		  ctx.fill();
-		}
-
-		colorrr = randColor();
-
-		function loop(){
-		  //if(frameCount%60 == 0) fondoDeg();
-		  for(var i = 0; i < 4; i++){
-		    var x = Math.random()*width;
-		    var y = Math.random()*height;
-		    var tt = Math.random()*8 +2;
-		    ctx.fillStyle = colorrr;
-		    ellipse(ctx, x, y, tt, tt);
-		    ctx.fill();
-		  }
-		}
+function loop(){
+  //if(frameCount%60 == 0) fondoDeg();
+  for(var i = 0; i < 4; i++){
+    var x = Math.random()*width;
+    var y = Math.random()*height;
+    var tt = Math.random()*80+2;
+    fill(color(250));
+    circle(x, y, tt);
+    
+    var ang = Math.random()*Math.PI*2;
+    ctx.fill();
+    fill(colorrr);
+    poly(x, y, tt, 6, ang);
+    ctx.fill();
+    
+    fill(color(40));
+    star(x, y, tt, 6, ang, 0.5);
+    ctx.fill();
+  }
+}
     </textarea>
 	<script id="code"></script>
 </body>
