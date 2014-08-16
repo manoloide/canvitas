@@ -3,26 +3,6 @@ window.onload = function() {
 }
 
 var coding;
-window.onkeydown = function(e) {
-    if (e.ctrlKey) {
-        if (e.keyCode == 13) {
-            autoFormat();
-            compilar();
-        }
-    }
-    if (e.keyCode == 9) {
-       var val = coding.value.toString(),
-       start = coding.selectionStart,
-       end = coding.selectionEnd;
-       selec = spaceTab + val.substring(start, end).replace(/(\r\n|\n|\r)/g,"\n"+spaceTab);
-       var cant = (selec.length - val.substring(start, end).length)/spaceTab.length;
-       coding.value = val.substring(0, start) + selec + val.substring(end);
-       coding.selectionStart = start + spaceTab.length;
-       coding.selectionEnd = end + spaceTab.length*cant;
-       return false;
-   }
-}
-
 function init() {
     coding = document.getElementById("coding");
     canvas = document.getElementById("canvis");
@@ -45,9 +25,63 @@ function init() {
         }
         frameCount++;
         loop(); 
+        keyClicked = keyReleased = false;
+        pmouseX = mouseX;
+        pmouseY = mouseY;
+        mouseClicked = mouseReleased = false;
     }, 1/60);
 }
 
+var loop = function(){
+
+}
+//eventos
+var key, keyClicked, keyPressed, keyReleased;
+keyClicked = keyPressed = keyReleased = false;
+window.onkeydown = function(e) {
+    key = e.keyCode;
+    keyClicked = keyPressed = true;
+    //editor
+    if (e.ctrlKey) {
+        if (e.keyCode == 13) {
+            autoFormat();
+            compilar();
+        }
+    }
+    if (e.keyCode == 9) {
+       var val = coding.value.toString(),
+       start = coding.selectionStart,
+       end = coding.selectionEnd;
+       selec = spaceTab + val.substring(start, end).replace(/(\r\n|\n|\r)/g,"\n"+spaceTab);
+       var cant = (selec.length - val.substring(start, end).length)/spaceTab.length;
+       coding.value = val.substring(0, start) + selec + val.substring(end);
+       coding.selectionStart = start + spaceTab.length;
+       coding.selectionEnd = end + spaceTab.length*cant;
+       return false;
+   }
+}
+window.onkeyup = function(e){
+    key = e.keyCode;
+    keyPressed = false;
+    keyReleased = true;
+}
+//mouse
+var mouseX, mouseY, pmouseX, pmouseY;
+mouseX = mouseY = pmouseX = pmouseY = 0;
+var mouseClicked, mousePressed, mouseReleased;
+mouseClicked = mousePressed = mouseReleased = false;
+window.onmousedown = function(){
+    mouseClicked = mousePressed = true;
+}
+window.onmouseup = function(){
+    mouseReleased = true;
+    mousePressed = false;
+}
+window.onmousemove = function(e){
+    mouseX = e.x - canvas.offsetLeft;
+    mouseY = e.y - canvas.offsetTop;
+}
+//editor 
 function autoFormat(){
     var ori = coding.value;
     var lines = ori.split(/\r\n|\r|\n/g);
@@ -81,11 +115,6 @@ function compilar(){
     script.text  = document.getElementById("coding").value;
     document.body.appendChild(script);
 }
-
-var loop = function(){
-
-}
-
 //// "Processing"
 // Colors
 function background(c){
@@ -184,6 +213,9 @@ function floor(v){
 }
 function log(v){
     return Math.log(v);
+}
+function map(v, min, max, min2, max2){
+    return
 }
 function max(v, v2){
     return Math.max(v, v2);

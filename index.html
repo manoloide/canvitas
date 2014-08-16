@@ -9,30 +9,37 @@
 <body>
 	<canvas id="canvis"></canvas>
 	<textarea wrap="off" id="coding" spellcheck="false">
-//con ctrl+enter "compilas";
+		//con ctrl+enter "compilas";
 
-colorrr = color(Math.random()*256, Math.random()*256, Math.random()*256);
-
-function loop(){
-  //if(frameCount%60 == 0) fondoDeg();
-  for(var i = 0; i < 4; i++){
-    var x = Math.random()*width;
-    var y = Math.random()*height;
-    var tt = Math.random()*80+2;
-    fill(color(250));
-    circle(x, y, tt);
-    
-    var ang = Math.random()*Math.PI*2;
-    ctx.fill();
-    fill(colorrr);
-    poly(x, y, tt, 6, ang);
-    ctx.fill();
-    
-    fill(color(40));
-    star(x, y, tt, 6, ang, 0.5);
-    ctx.fill();
-  }
-}
+		colorrr = color(random(256), random(256), random(256));
+		function cosito(x, y, tt, c){
+			fill(color(250));
+		    circle(x, y, tt);
+		    
+		    var ang = random(TWO_PI);
+		    ctx.fill();
+		    fill(colorrr);
+		    poly(x, y, tt, c, ang);
+		    ctx.fill();
+		    
+		    fill(color(240));
+		    star(x, y, tt, c, ang, 0.5);
+		    ctx.fill();
+		}
+		function loop(){
+		  //if(frameCount%60 == 0) fondoDeg();
+		  if(mouseClicked){
+		    colorrr = color(random(256), random(256), random(256));
+		    background(colorrr);
+		  }
+		  for(var i = 0; i < 4; i++){
+		    var x = random(width);
+		    var y = random(height);
+		    var tt = random(20,80);
+		    var c = round(random(4, 9));
+		    cosito(x,y,tt,c);
+		  }
+		}
     </textarea>
 	<script id="code"></script>
 </body>
